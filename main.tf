@@ -26,11 +26,6 @@ resource "aws_instance" "project-iac" {
 }
 
 
-
-provider "aws" {
-  region = "us-east-1"
-}
-
 resource "aws_security_group" "project-terraform-sg" {
   name = "terraform-Sec-Group"
   description = "terraform-Sec-Group"
