@@ -26,38 +26,40 @@ resource "aws_instance" "project-iac" {
 }
 
 
+
 resource "aws_security_group" "project-terraform-sg" {
   name = "terraform-Sec-Group"
   description = "terraform-Sec-Group"
   vpc_id = aws_vpc.Main.id
-
-  // To Allow SSH Transport
-  ingress {
-    from_port = 22
-    protocol = "tcp"
-    to_port = 22
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  // To Allow Port 80 Transport
-  ingress {
-    from_port = 80
-    protocol = ""
-    to_port = 80
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
+
+resource "aws_security_group_rule" "ingress_rule1" {
+      type              = "ingress"
+      from_port         = 22
+      to_port           = 22
+      protocol          = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+      security_group_id = "${aws_security_group.project-terraform-sg.id}"
+    }
+
+resource "aws_security_group_rule" "ingress_rule2" {
+      type              = "ingress"
+      from_port         = 0
+      to_port           = 0
+      protocol          = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+      security_group_id = "${aws_security_group.project-terraform-sg.id}"
+    }
+
+ resource "aws_security_group_rule" "egress_all1" {
+      type              = "egress"
+      from_port         = 0
+      to_port           = 0
+      protocol          = "-1"
+      cidr_blocks       = ["0.0.0.0/0"]
+      security_group_id = "${aws_security_group.project-terraform-sg.id}"
+    }
+
 
 
 output "ec2instance" {
