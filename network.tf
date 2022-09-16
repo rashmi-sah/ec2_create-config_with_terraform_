@@ -39,6 +39,9 @@
 	 tags = {
     Name ="Git_RT"
   }
+  
+ }
+
 ### get output
 
 output "vpc_details" {
@@ -48,5 +51,3 @@ output "vpc_details" {
 output "subnet_details" {
   value = aws_subnet.publicsubnets.id
   }
-  
- }
