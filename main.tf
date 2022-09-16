@@ -1,25 +1,40 @@
-variable "awsprops" {
-    type = "map"
-    default = {
-    region = "us-east-1"
-    #vpc = aws_vpc.Main.id
-    ami = "ami-052efd3df9dad4825"
-    itype = "t2.micro"
-    #subnet = aws_subnet.publicsubnets.id
-    publicip = true
-    keyname = "AWS_EC2_key"
-    secgroupname = "terraform-Sec-Group"
+resource "aws_instance" "project-iac" {
+  ami = "ami-052efd3df9dad4825"
+  instance_type = "t2.micro"
+  subnet_id = aws_subnet.publicsubnets.id
+  associate_public_ip_address = true
+  key_name = "AWS_EC2_key"
+
+
+  vpc_security_group_ids = [
+    aws_security_group.project-terraform-sg.id
+  ]
+  root_block_device {
+    delete_on_termination = true
+    iops = 150
+    volume_size = 50
+    volume_type = "gp2"
   }
+  tags = {
+    Name ="Ubuntu_Terraform"
+    Environment = "DEV"
+    OS = "UBUNTU"
+    Managed = "IAC"
+  }
+
+  depends_on = [ aws_security_group.project-terraform-sg ]
 }
 
+
+
 provider "aws" {
-  region = lookup(var.awsprops, "region")
+  region = "us-east-1"
 }
 
 resource "aws_security_group" "project-terraform-sg" {
-  name = lookup(var.awsprops, "secgroupname")
-  description = lookup(var.awsprops, "secgroupname")
-  vpc_id = lookup(var.awsprops, "vpc")
+  name = "terraform-Sec-Group"
+  description = "terraform-Sec-Group"
+  vpc_id = aws_vpc.Main.id
 
   // To Allow SSH Transport
   ingress {
@@ -47,4 +62,9 @@ resource "aws_security_group" "project-terraform-sg" {
   lifecycle {
     create_before_destroy = true
   }
+}
+
+
+output "ec2instance" {
+  value = aws_instance.project-iac.public_ip
 }
