@@ -31,3 +31,9 @@
 output "vpc_details" {
   value = aws_vpc.Main.id
   }
+
+output "vpc_details" {
+  value = aws_vpc.Main.id
+  value = aws_subnet.publicsubnets.id
+  }
+ }
