@@ -33,7 +33,6 @@ output "vpc_details" {
   }
 
 output "vpc_details" {
-  value = aws_vpc.Main.id
-  value = aws_subnet.publicsubnets.id
+ value = [aws_vpc.Main.id,aws_subnet.publicsubnets.id ]
   }
  }
