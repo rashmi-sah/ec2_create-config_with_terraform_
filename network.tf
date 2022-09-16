@@ -35,4 +35,4 @@ output "vpc_details" {
 output "subnet_details" {
   value = aws_subnet.publicsubnets.id
   }
- }
+ 
