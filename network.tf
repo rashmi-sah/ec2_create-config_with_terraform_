@@ -28,3 +28,6 @@
     route_table_id = aws_route_table.PublicRT.id
  }
  
+output "vpc_details" {
+  value = aws_vpc.Main.id
+  }
