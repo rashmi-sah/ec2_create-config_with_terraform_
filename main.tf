@@ -81,12 +81,13 @@ resource "null_resource" "nullremote1" {
 depends_on = [aws_instance.aws_ec_instance] 
 connection {
  type     = "ssh"
- user     = "root"
+ user     = "ubuntu"
+ port        = 22
  host= aws_instance.aws_ec_instance.public_ip
 }
   
 provisioner "file" {
     source      = "ip.txt"
     destination = "ip.txt"
-      }
+       }
 }
