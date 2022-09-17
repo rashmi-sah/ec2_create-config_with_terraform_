@@ -67,3 +67,8 @@ resource "aws_security_group_rule" "ingress_rule2" {
 output "ec2instance" {
   value = aws_instance.aws_ec_instance.public_ip
 }
+
+resource "local_file" "ip" {
+    content  = aws_instance.aws_ec_instance.public_ip
+    filename = "ip.txt"
+}
