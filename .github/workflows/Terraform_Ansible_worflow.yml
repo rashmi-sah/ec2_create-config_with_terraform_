@@ -68,6 +68,10 @@ jobs:
           SSH_USER: ${{ secrets.USER_NAME }}
           SSH_KEY: ${{ secrets.PRIVATE_KEY }}
           
+    - name: Sleep for  5 mins
+      run: sleep 300s
+      shell: bash
+      
     #### Installing docker using unix commands
     
     - name: login ec2 server and install docker
