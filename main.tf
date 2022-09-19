@@ -72,10 +72,10 @@ output "ec2dns" {
   value = aws_instance.aws_ec_instance.public_dns
 }
 
-#resource "local_file" "ip" {
-   #content  = aws_instance.aws_ec_instance.public_ip
-   # filename = "ip.txt"
-#}
+resource "local_file" "ip" {
+   content  = aws_instance.aws_ec_instance.public_ip
+    filename = "ip.txt"
+}
 
 #resource "null_resource" "nullremote1" {
 #depends_on = [aws_instance.aws_ec_instance] 
