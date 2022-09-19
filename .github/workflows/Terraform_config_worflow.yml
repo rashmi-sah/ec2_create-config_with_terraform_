@@ -1,4 +1,6 @@
-name: 'Terraform_Ansible_worflow'
+############### This workflow file in running terraform files to create vpc,ec2 and then login to ec2 server 
+########### to perform docker installation
+name: 'Terraform_config_worflow'
 
 on:
   workflow_dispatch:
@@ -68,6 +70,8 @@ jobs:
           SSH_USER: ${{ secrets.USER_NAME }}
           SSH_KEY: ${{ secrets.PRIVATE_KEY }}
           
+    #### Running sleep command so that ec2 initilization gets completed  
+    
     - name: Sleep for  5 mins
       run: sleep 300s
       shell: bash
