@@ -1,3 +1,4 @@
+#### This file creates aws ec2 server and stores ec2 public IP in output variable
 resource "aws_instance" "aws_ec_instance" {
   ami = "ami-052efd3df9dad4825"
   instance_type = "t2.micro"
